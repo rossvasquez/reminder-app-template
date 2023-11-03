@@ -4,6 +4,8 @@ import arrow from '../static/arrow.png'
 
 import DayList from "./day-list"
 
+import { getDots } from "../../supabase/getDots"
+
 export default function Calendar() {
 
     const [CurrentDate] = useState(new Date())
@@ -86,7 +88,21 @@ export default function Calendar() {
             }
         }
         setGregorian(tempArr)
+        
     }, [SelectedDate.year])
+
+    useEffect(() => {
+        const completedDots = async () => {
+            let tempArr = [...Gregorian]
+            let dotsArr = await getDots(SelectedDate.year)
+            for (let i=0;i<dotsArr.length;i++) {
+                tempArr[dotsArr[i].monthInd].days[dotsArr[i].dayInd] = dotsArr[i].completedArr
+            }
+            setGregorian(tempArr)
+        }
+
+        completedDots()
+    }, [SelectedDate.year, ShowCalendar])
 
     const handleStepper = (direction) => {
         let tempObj = {...SelectedDate}
@@ -144,11 +160,16 @@ export default function Calendar() {
     <div className="flex flex-col justify-start">
         <MonthStepper />
         <div className="grid grid-cols-[repeat(auto-fill,_minmax(6rem,_1fr))] md:grid-cols-[repeat(auto-fill,_minmax(8rem,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(10rem,_1fr))] gap-2">
-        {Gregorian[SelectedDate.month].days.map((item, id) =>
+        {Gregorian[SelectedDate.month].days.map((day, id) =>
             <div onClick={() => handleCalendar(id)} key={id} className="h-24 md:h-32 lg:h-40 rounded-md bg-zinc-800 hover:shadow-md hover:bg-opacity-60 hover:bg-neutral-400 hover:cursor-pointer hover:scale-[103%] transition-all">
                 <div className={`relative pl-2 pt-1 flex items-center w-full ${isToday(id) ? 'text-cyan-400' : 'text-white'}`}>
                     <p>{id + 1}</p> 
                     <p className="absolute right-2 text-zinc-300 text-sm">{isToday(id) ? 'Today' : null}</p>
+                </div>
+                <div className="px-3 py-2 gap-2 w-full rounded-lg flex flex-wrap">
+                    {day.map((completed, id) =>
+                        <div key={id} className={`w-3 h-3 rounded-full ${completed ? 'bg-cyan-400' : 'border-[.1rem] border-white'}`} />
+                    )}
                 </div>
             </div>
         )}
@@ -158,7 +179,7 @@ export default function Calendar() {
     return(
         <div className="h-auto w-auto md:px-10 mt-6">
             {ShowCalendar && <FullCalendar />}
-            {!ShowCalendar && <DayList Day={SelectedDate.day} Month={Gregorian[SelectedDate.month].month} Back={() => setShowCalendar(true)} />}
+            {!ShowCalendar && <DayList Day={SelectedDate.day} Month={Gregorian[SelectedDate.month].month} MonthNum={SelectedDate.month} Year={SelectedDate.year} Back={() => setShowCalendar(true)} />}
         </div>
     )
 }
