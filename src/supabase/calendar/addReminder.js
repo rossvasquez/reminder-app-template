@@ -1,4 +1,4 @@
-import { supabase } from "./initialize"
+import { supabase } from "../initialize"
 
 export const addReminder = async (reminder, date, truthy) => {
 

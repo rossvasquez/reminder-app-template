@@ -1,6 +1,6 @@
-import { supabase } from './initialize'
+import { supabase } from '../initialize'
 
-export const fetchUserInfo = async () => {
+export const getName = async () => {
     const { data, error } = await supabase
         .from('users')
         .select('first_name')

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 
-import { addReminder } from "../../supabase/addReminder"
-import { fetchReminders } from "../../supabase/fetchReminders"
+import { addReminder } from "../../../supabase/calendar/addReminder"
+import { fetchReminders } from "../../../supabase/calendar/fetchReminders"
+
+import arrow from '../../static/arrow.png'
 
 export default function DayList({Month, MonthNum, Day, Year, Back}) {
 
@@ -104,7 +106,7 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
                 <input onChange={(e) => handleReminder(e)} value={ReminderToAdd.reminder} placeholder="ex. Go to Grocery Store" name="Reminder" type="text" className="mt-1 focus:outline-none text-2xl rounded-lg h-14 font-light text-zinc-800 px-3" />
                 <label for="Comments" className="text-white font-light text-xl mt-4">Comments (Optional)</label>
                 <textarea onChange={(e) => handleComments(e)} value={ReminderToAdd.comments} placeholder="ex. Get Milk, Eggs, and Bacon" name="Comments" className="mt-1 focus:outline-none text-2xl rounded-lg h-40 font-light text-zinc-800 px-3 py-1 resize-none" />
-                <button type="submit" className="w-full rounded-lg mt-6 bg-cyan-400 text-white h-14 text-xl hover:bg-opacity-[80%] active:text-neutral-300">Add</button>
+                <button type="submit" className="w-full rounded-lg mt-6 bg-cyan-400 text-white h-14 text-xl hover:bg-opacity-[80%] active:text-neutral-300 font-light">Add</button>
             </form>
         )
     }
@@ -149,9 +151,13 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
     return(
         <>
         <div className="relative flex items-center w-full">
-            <p className="text-4xl font-semibold text-white">{Month} {getSuffix(Day)}'s Reminders</p>
-            <div onClick={Back} className="absolute right-4 px-6 py-3 rounded-lg bg-cyan-400 text-white hover:bg-opacity-60 active:bg-cyan-300 hover:cursor-pointer">
-                Back
+            <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{Month} {getSuffix(Day)}'s Reminders</p>
+            <div onClick={Back} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-cyan-400 hover:bg-opacity-60 active:bg-cyan-300 hover:cursor-pointer">
+                <img
+                    src={arrow}
+                    alt='Back to Calendar'
+                    className="rotate-180 scale-[65%] opacity-80"
+                />
             </div>
         </div>
         <div className={`${Reminders.length === 0 ? 'flex justify-center items-center px-2' : 'px-6' } min-h-[20rem] mt-6 text-3xl font-light rounded-lg border-2 text-white border-zinc-800`}>
@@ -171,7 +177,7 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
             }
         </div>
         {AddReminder ? <ReminderForm /> :
-        <div onClick={() => setAddReminder(true)} className="max-w-6xl mt-4 w-full h-12 rounded-lg border-2 border-cyan-400 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
+        <div onClick={() => setAddReminder(true)} className="mt-4 w-full h-16 rounded-lg border-2 border-cyan-400 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
         }
         </>
     )

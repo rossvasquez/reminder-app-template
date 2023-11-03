@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 
-import arrow from '../static/arrow.png'
+import arrow from '../../static/arrow.png'
 
 import DayList from "./day-list"
 
-import { getDots } from "../../supabase/getDots"
+import { getDots } from "../../../supabase/calendar/fetchDots"
+import { signOut } from "../../../supabase/auth/signOut"
 
-export default function Calendar() {
+export default function Calendar({ChangeState}) {
 
     const [CurrentDate] = useState(new Date())
 
@@ -127,11 +128,11 @@ export default function Calendar() {
     const MonthStepper = () =>
     <div className="w-full flex flex-col-reverse md:flex-row items-start md:items-center justify-center md:justify-start mt-4 mb-6 md:my-4">
         <div className="flex gap-2 scale-[80%] md:scale-100 mt-2 md:mt-0">
-            <div onClick={() => handleStepper('backwards')} className="w-10 h-10 pr-1 flex justify-center items-center rounded-full bg-neutral-300 bg-opacity-0 -ml-4 md:-ml-0 md:active:bg-opacity-60 hover:cursor-pointer">
-                <img src={arrow} alt='Move Back A Month' className="rotate-180 h-2/3" />
+            <div onClick={() => handleStepper('backwards')} className="w-10 h-10 pr-1 flex justify-center items-center rounded-full bg-neutral-300 bg-opacity-0 -ml-4 md:-ml-0 md:active:bg-opacity-60 hover:cursor-pointer group">
+                <img src={arrow} alt='Move Back A Month' className="rotate-180 h-2/3 group-hover:opacity-80 active:opacity-60" />
             </div>
-            <div onClick={() => handleStepper('forwards')} className="w-10 h-10 flex justify-center items-center pl-1 rounded-full bg-neutral-300 bg-opacity-0 md:active:bg-opacity-60 hover:cursor-pointer">
-                <img src={arrow} alt='Move Forward A Month' className="h-2/3" />
+            <div onClick={() => handleStepper('forwards')} className="w-10 h-10 flex justify-center items-center pl-1 rounded-full bg-neutral-300 bg-opacity-0 md:active:bg-opacity-60 hover:cursor-pointer group">
+                <img src={arrow} alt='Move Forward A Month' className="h-2/3 group-hover:opacity-80 active:opacity-60" />
             </div>
         </div>
         <p className="md:px-4 text-3xl text-white font-semibold md:text-center md:mb-1">{Gregorian[SelectedDate.month].month} {SelectedDate.year}</p>
@@ -156,6 +157,14 @@ export default function Calendar() {
         setShowCalendar(false)
     }
 
+    const handleSignOut = async () => {
+      const signOutReturn = await signOut()
+      if (signOutReturn) {
+            ChangeState()
+        } else {
+            window.alert('Error signing out, please retry. If issue persists contact support.')
+        }
+    }
     const FullCalendar = () =>
     <div className="flex flex-col justify-start">
         <MonthStepper />
@@ -174,10 +183,11 @@ export default function Calendar() {
             </div>
         )}
         </div>
+        <div onClick={() => handleSignOut()} className='w-full rounded-lg bg-cyan-400 h-16 mt-8 flex justify-center items-center text-2xl text-white hover:bg-opacity-80 active:text-neutral-400 hover:cursor-pointer font-light'>Sign Out</div>
     </div>
 
     return(
-        <div className="h-auto w-auto md:px-10 mt-6">
+        <div className="h-auto w-auto mt-6">
             {ShowCalendar && <FullCalendar />}
             {!ShowCalendar && <DayList Day={SelectedDate.day} Month={Gregorian[SelectedDate.month].month} MonthNum={SelectedDate.month} Year={SelectedDate.year} Back={() => setShowCalendar(true)} />}
         </div>

@@ -1,4 +1,4 @@
-import { supabase } from './initialize'
+import { supabase } from '../initialize'
 
 export const fetchReminders = async (date) => {
     const { data, error } = await supabase
