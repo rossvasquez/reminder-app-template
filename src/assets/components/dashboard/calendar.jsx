@@ -128,11 +128,11 @@ export default function Calendar({ChangeState}) {
     const MonthStepper = () =>
     <div className="w-full flex flex-col-reverse md:flex-row items-start md:items-center justify-center md:justify-start mt-4 mb-6 md:my-4">
         <div className="flex gap-2 scale-[80%] md:scale-100 mt-2 md:mt-0">
-            <div onClick={() => handleStepper('backwards')} className="w-10 h-10 pr-1 flex justify-center items-center rounded-full bg-neutral-300 bg-opacity-0 -ml-4 md:-ml-0 md:active:bg-opacity-60 hover:cursor-pointer group">
-                <img src={arrow} alt='Move Back A Month' className="rotate-180 h-2/3 group-hover:opacity-80 active:opacity-60" />
+            <div onClick={() => handleStepper('backwards')} className="w-10 h-10 pr-1 flex justify-center items-center rounded-full bg-neutral-300 bg-opacity-0 -ml-4 md:-ml-0 hover:cursor-pointer group">
+                <img src={arrow} alt='Move Back A Month' className="rotate-180 h-2/3 group-hover:opacity-80 group-active:opacity-60" />
             </div>
-            <div onClick={() => handleStepper('forwards')} className="w-10 h-10 flex justify-center items-center pl-1 rounded-full bg-neutral-300 bg-opacity-0 md:active:bg-opacity-60 hover:cursor-pointer group">
-                <img src={arrow} alt='Move Forward A Month' className="h-2/3 group-hover:opacity-80 active:opacity-60" />
+            <div onClick={() => handleStepper('forwards')} className="w-10 h-10 flex justify-center items-center pl-1 rounded-full bg-neutral-300 bg-opacity-0 hover:cursor-pointer group">
+                <img src={arrow} alt='Move Forward A Month' className="h-2/3 group-hover:opacity-80 group-active:opacity-60" />
             </div>
         </div>
         <p className="md:px-4 text-3xl text-white font-semibold md:text-center md:mb-1">{Gregorian[SelectedDate.month].month} {SelectedDate.year}</p>
@@ -183,7 +183,7 @@ export default function Calendar({ChangeState}) {
             </div>
         )}
         </div>
-        <div onClick={() => handleSignOut()} className='w-full rounded-lg bg-cyan-400 h-16 mt-8 flex justify-center items-center text-2xl text-white hover:bg-opacity-80 active:text-neutral-400 hover:cursor-pointer font-light'>Sign Out</div>
+        <div onClick={() => handleSignOut()} className='w-1/2 rounded-full mx-auto hover:text-zinc-800 text-white bg-cyan-400 h-16 mt-8 flex justify-center items-center text-2xl text-white hover:bg-opacity-[90%] active:text-neutral-400 hover:cursor-pointer font-light'>Sign Out</div>
     </div>
 
     return(

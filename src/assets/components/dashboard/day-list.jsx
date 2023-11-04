@@ -103,10 +103,10 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
                     <label for="Reminder" className="text-white font-light text-xl">Reminder</label>
                     {ShowError ? <p className="text-cyan-400 absolute right-2">Please Fill Out</p> : null}
                 </div>
-                <input onChange={(e) => handleReminder(e)} value={ReminderToAdd.reminder} placeholder="ex. Go to Grocery Store" name="Reminder" type="text" className="mt-1 focus:outline-none text-2xl rounded-lg h-14 font-light text-zinc-800 px-3" />
+                <input onChange={(e) => handleReminder(e)} value={ReminderToAdd.reminder} placeholder="ex. Go to Grocery Store" name="Reminder" type="text" className="mt-1 focus:outline-none text-2xl rounded-sm h-14 font-light text-zinc-800 px-3" />
                 <label for="Comments" className="text-white font-light text-xl mt-4">Comments (Optional)</label>
-                <textarea onChange={(e) => handleComments(e)} value={ReminderToAdd.comments} placeholder="ex. Get Milk, Eggs, and Bacon" name="Comments" className="mt-1 focus:outline-none text-2xl rounded-lg h-40 font-light text-zinc-800 px-3 py-1 resize-none" />
-                <button type="submit" className="w-full rounded-lg mt-6 bg-cyan-400 text-white h-14 text-xl hover:bg-opacity-[80%] active:text-neutral-300 font-light">Add</button>
+                <textarea onChange={(e) => handleComments(e)} value={ReminderToAdd.comments} placeholder="ex. Get Milk, Eggs, and Bacon" name="Comments" className="mt-1 focus:outline-none text-2xl rounded-sm h-40 font-light text-zinc-800 px-3 pt-2 resize-none" />
+                <button type="submit" className="w-1/2 rounded-full mx-auto mt-6 bg-cyan-400 text-white hover:text-zinc-800 h-16 text-2xl hover:bg-opacity-[90%] active:text-neutral-300 font-light">Add to Day</button>
             </form>
         )
     }
@@ -152,11 +152,11 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
         <>
         <div className="relative flex items-center w-full">
             <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{Month} {getSuffix(Day)}'s Reminders</p>
-            <div onClick={Back} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-cyan-400 hover:bg-opacity-60 active:bg-cyan-300 hover:cursor-pointer">
+            <div onClick={Back} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-zinc-800 hover:bg-opacity-60 active:bg-opacity-100 hover:cursor-pointer">
                 <img
                     src={arrow}
                     alt='Back to Calendar'
-                    className="rotate-180 scale-[65%] opacity-80"
+                    className="rotate-180 scale-[55%]"
                 />
             </div>
         </div>
@@ -177,7 +177,7 @@ export default function DayList({Month, MonthNum, Day, Year, Back}) {
             }
         </div>
         {AddReminder ? <ReminderForm /> :
-        <div onClick={() => setAddReminder(true)} className="mt-4 w-full h-16 rounded-lg border-2 border-cyan-400 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
+        <div onClick={() => setAddReminder(true)} className="mt-4 w-1/2 h-16 rounded-full border-2 border-cyan-400 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
         }
         </>
     )
