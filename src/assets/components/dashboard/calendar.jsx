@@ -4,10 +4,14 @@ import arrow from '../../static/arrow.png'
 
 import DayList from "./day-list"
 
+import { useNavigate } from "react-router-dom"
+
 import { getDots } from "../../../supabase/calendar/fetchDots"
 import { signOut } from "../../../supabase/auth/signOut"
 
-export default function Calendar({ChangeState}) {
+export default function Calendar() {
+
+    let navigate = useNavigate()
 
     const [CurrentDate] = useState(new Date())
 
@@ -160,7 +164,7 @@ export default function Calendar({ChangeState}) {
     const handleSignOut = async () => {
       const signOutReturn = await signOut()
       if (signOutReturn) {
-            ChangeState()
+            navigate('/')
         } else {
             window.alert('Error signing out, please retry. If issue persists contact support.')
         }

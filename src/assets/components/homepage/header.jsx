@@ -1,4 +1,4 @@
-import task from '../static/task.png'
+import task from '../../static/task.png'
 
 export default function Header() {
 
