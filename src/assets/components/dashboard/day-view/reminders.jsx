@@ -38,7 +38,7 @@ export default function Reminders({updateReminders, EmptyReminder, RemindersList
     }
 
     return(
-        <div className="px-6 min-h-[20rem] mt-6 text-3xl font-light rounded-lg border-2 text-white border-zinc-800">
+        <div className="px-6 min-h-[20rem] mt-6 text-3xl font-light rounded-sm border-2 text-white border-zinc-800">
             <div className="flex flex-col">
                 {RemindersList.map((item, id) =>
                     <div key={id} className="w-full flex gap-4 border-b-[.1rem] border-cyan-400 last:border-b-0 py-6">

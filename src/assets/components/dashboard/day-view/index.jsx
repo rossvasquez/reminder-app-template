@@ -45,7 +45,7 @@ export default function DayView({Month, MonthNum, Day, Year, Back}) {
     </div>
 
     const AddReminderBtn = () =>
-    <div onClick={() => setAddReminder(true)} className="mt-4 w-1/2 h-16 rounded-full border-2 border-cyan-400 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
+    <div onClick={() => setAddReminder(true)} className="mt-4 w-full h-16 rounded-sm border-2 border-cyan-400 hover:bg-cyan-400 transition-all duration-300 mx-auto flex justify-center items-center text-white text-2xl pb-1 font-semibold hover:cursor-pointer hover:bg-cyan-400">+</div>
 
     return(
         <>

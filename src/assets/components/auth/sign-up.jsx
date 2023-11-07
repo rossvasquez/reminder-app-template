@@ -68,7 +68,7 @@ export default function SignUp() {
                 <label htmlFor="passwordCheck" className="w-full text-left text-white font-light text-xl pl-2 mt-4">Confirm Password</label>
                 <input required onBlur={() => checkPasswordMatch()} onChange={(e) => handleChange(e)} value={FormInfo.password2} type='password' name='password2' className="mt-1 focus:outline-none w-full text-2xl rounded-sm h-14 font-light text-zinc-800 px-3" />
                 {FormInfo.password_match ? null : <p className="text-xl text-cyan-400 mt-4 w-full font-light">Passwords Do Not Match</p>}
-                <button type="submit" className="w-full h-16 rounded-sm transition-all border-2 border-cyan-400 hover:bg-cyan-400 text-white text-2xl duration-[300ms] text-white font-light hover:cursor-pointer active:text-neutral-300 mt-8 mb-6">Let's Go</button>
+                <button type="submit" className="w-full h-16 rounded-sm transition-all border-2 border-cyan-400 hover:bg-cyan-400 text-white text-2xl duration-[300ms] text-white font-light hover:cursor-pointer active:text-neutral-300 mt-8 mb-1 md:mb-6">Let's Go</button>
             </div>
         </form>
     )
