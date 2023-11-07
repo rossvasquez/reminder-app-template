@@ -2,18 +2,21 @@ import { supabase } from '../initialize'
 
 export const signUpUser = async (UserInfo) => {
 
-    console.log(UserInfo)
-
     const addUserToDB = async () => {
         const { error } = await supabase
             .from('users')
             .insert({ first_name: UserInfo.name, email: UserInfo.email })
         
         if (error) {
-            console.log(error)
-            return false
+            return {
+                didError: true,
+                data: error,
+            }
         } else {
-            return true
+            return {
+                didError: false,
+                data: null,
+            }
         }
     }
     
@@ -24,8 +27,10 @@ export const signUpUser = async (UserInfo) => {
           })
         
         if (error) {
-            console.log(error)
-            return false
+            return {
+                didError: true,
+                data: error,
+            }
         } else {
             const DB = await addUserToDB()
             return DB
