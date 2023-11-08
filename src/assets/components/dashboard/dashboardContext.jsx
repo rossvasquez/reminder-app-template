@@ -25,7 +25,7 @@ export const DashboardContextProvider = ({ children }) => {
 
     return (
         <DashboardContext.Provider value={{ 
-            CurrentDate, 
+            CurrentDate,
             SelectedDate, setSelectedDate,
             ShowCalendar, setShowCalendar, 
             Gregorian, setGregorian,

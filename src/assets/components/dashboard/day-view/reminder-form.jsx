@@ -1,7 +1,4 @@
 
-import { useContext } from "react"
-import { DashboardContext } from "../dashboardContext"
-
 import { useState } from "react"
 
 import { addReminder } from "../../../../supabase/calendar/add-reminder"

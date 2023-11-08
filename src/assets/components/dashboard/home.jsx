@@ -9,9 +9,11 @@ import DayView from "./day-view"
 import { getDots } from "../../../supabase/calendar/fetch-dots"
 import { getName } from "../../../supabase/user/get-name"
 
+import { gregorian } from "../../data/gregorian-calendar"
+
 export default function DashboardHome() {
 
-    const { ShowCalendar, Gregorian, setGregorian, SelectedDate, UserName, setUserName } = useContext(DashboardContext)
+    const { ShowCalendar, setGregorian, SelectedDate, UserName, setUserName } = useContext(DashboardContext)
 
     useEffect(() => {
         const fetchName = async () => {
@@ -31,7 +33,7 @@ export default function DashboardHome() {
                 isLeapYear = true
             }
         }
-        let tempArr = [...Gregorian]
+        let tempArr = gregorian
         let february = tempArr[1].days
         if (isLeapYear) {
             if (february.length === 28) {
@@ -44,13 +46,13 @@ export default function DashboardHome() {
         }
         setGregorian(tempArr)
         
-    }, [(SelectedDate.year)])
+    }, [SelectedDate.year])
 
     // Get reminder info to set dot preview on calendar view
 
     useEffect(() => {
         const completedDots = async () => {
-            let tempArr = [...Gregorian]
+            let tempArr = structuredClone(gregorian)
             let dotsArr = await getDots((SelectedDate.year))
             for (let i=0;i<dotsArr.length;i++) {
                 tempArr[dotsArr[i].monthInd].days[dotsArr[i].dayInd] = dotsArr[i].completedArr

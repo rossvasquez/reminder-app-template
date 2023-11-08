@@ -4,7 +4,13 @@ export const getDots = async (year) => {
 
     const returnObj = []
 
-    const formatDots = async () => {
+    const { data, error } = await supabase
+        .from('reminders')
+        .select('reminders, date')
+
+    if (error) {
+        window.alert(error)
+    } else {
         for (let i=0;i<data.length;i++) {
 
             let thisDate = data[i].date
@@ -14,6 +20,8 @@ export const getDots = async (year) => {
             let dayIndex = theRest.indexOf('/')
             let day = Number(theRest.slice(0, dayIndex)) - 1
             let objYear = Number(theRest.slice(dayIndex+1))
+
+            console.log(objYear)
     
             let selectedBool = []
     
@@ -29,16 +37,6 @@ export const getDots = async (year) => {
             }
     
         }
-    }
-
-    const { data, error } = await supabase
-        .from('reminders')
-        .select('reminders, date')
-
-    if (error) {
-        window.alert(error)
-    } else {
-        await formatDots()
     }
 
     return returnObj
