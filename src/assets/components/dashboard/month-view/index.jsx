@@ -6,7 +6,7 @@ import { signOut } from "../../../../supabase/auth/sign-out"
 import Calendar from "./calendar"
 import MonthStepper from "./month-stepper"
 
-export default function MonthView({Gregorian, CurrentDate, SelectedDate, setSelectedDate, setShowCalendar}) {
+export default function MonthView() {
     
     let navigate = useNavigate()
 
@@ -24,8 +24,8 @@ export default function MonthView({Gregorian, CurrentDate, SelectedDate, setSele
 
     return(
     <div className="flex flex-col justify-start">
-        <MonthStepper Gregorian={Gregorian} SelectedDate={SelectedDate} setSelectedDate={setSelectedDate} />
-        <Calendar SelectedDate={SelectedDate} setSelectedDate={setSelectedDate} CurrentDate={CurrentDate} Gregorian={Gregorian} setShowCalendar={setShowCalendar} />
+        <MonthStepper />
+        <Calendar />
         <SignOutBtn />
     </div>
     )

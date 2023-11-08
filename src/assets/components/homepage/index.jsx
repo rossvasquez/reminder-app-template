@@ -13,7 +13,6 @@ export default function Home() {
     useEffect(() => {
       const getSessionData = async () => {
         const { data } = await supabase.auth.getSession()
-        console.log(data.session)
         if (data.session === null) {
           navigate('/')
         } else if (data.session.user.aud == 'authenticated') {

@@ -1,25 +1,31 @@
+
+import { useContext } from 'react'
+import { DashboardContext } from '../dashboardContext'
+
 import arrow from '../../../static/arrow.png'
 
-export default function MonthStepper({Gregorian, SelectedDate, setSelectedDate}) {
+export default function MonthStepper() {
+
+    const { Gregorian, SelectedDate, setSelectedDate } = useContext(DashboardContext)
 
     const handleStepper = (direction) => {
-        let tempObj = {...SelectedDate}
+        let tempSelectedDate = {...SelectedDate}
         if (direction == 'backwards') {
             if (SelectedDate.month > 0) {
-                tempObj.month = tempObj.month - 1
+                tempSelectedDate.month = tempSelectedDate.month - 1
             } else {
-                tempObj.year = tempObj.year - 1
-                tempObj.month = 11
+                tempSelectedDate.year = tempSelectedDate.year - 1
+                tempSelectedDate.month = 11
             }
         } else {
             if (SelectedDate.month < 11) {
-                tempObj.month = tempObj.month + 1
+                tempSelectedDate.month = tempSelectedDate.month + 1
             } else {
-                tempObj.year = tempObj.year + 1
-                tempObj.month = 0
+                tempSelectedDate.year = tempSelectedDate.year + 1
+                tempSelectedDate.month = 0
             }
         }
-        setSelectedDate(tempObj)
+        setSelectedDate(tempSelectedDate)
     }
 
     return(
@@ -32,7 +38,7 @@ export default function MonthStepper({Gregorian, SelectedDate, setSelectedDate})
                     <img src={arrow} alt='Move Forward A Month' className="h-2/3 group-hover:opacity-80 group-active:opacity-60" />
                 </div>
             </div>
-            <p className="md:px-4 text-3xl text-white font-semibold md:text-center md:mb-1">{Gregorian[SelectedDate.month].month} {SelectedDate.year}</p>
+            <p className="md:px-4 text-3xl text-white font-semibold md:text-center md:mb-1">{Gregorian[SelectedDate.month].monthName} {SelectedDate.year}</p>
         </div>
     )
 }

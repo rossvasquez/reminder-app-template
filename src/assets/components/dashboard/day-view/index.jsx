@@ -1,5 +1,6 @@
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { DashboardContext } from "../dashboardContext"
 
 import { fetchReminders } from "../../../../supabase/calendar/fetch-reminders"
 
@@ -7,9 +8,13 @@ import DayHeader from "./day-header"
 import Reminders from "./reminders"
 import ReminderForm from "./reminder-form"
 
-import arrow from '../../../static/arrow.png'
+export default function DayView() {
 
-export default function DayView({Month, MonthNum, Day, Year, Back}) {
+    const { SelectedDate, Gregorian } = useContext(DashboardContext)
+
+    const [MonthName]  = useState(Gregorian[SelectedDate.month].monthName)
+
+    const [FormattedDate] = useState(`${(SelectedDate.month)+1}/${SelectedDate.day}/${SelectedDate.year}`)
 
     const [RemindersList, setRemindersList] = useState([])
 
@@ -18,9 +23,8 @@ export default function DayView({Month, MonthNum, Day, Year, Back}) {
     const [EmptyReminder, setEmptyReminder] = useState(true)
 
     const updateReminders = () => {
-        const date = `${MonthNum+1}/${Day}/${Year}`
         const fetchThem = async () => {
-            const reminderReturn = await fetchReminders(date)
+            const reminderReturn = await fetchReminders(FormattedDate)
             if (reminderReturn.test) {
                 if (reminderReturn.data.length === 0) {
                     setEmptyReminder(true)
@@ -29,7 +33,7 @@ export default function DayView({Month, MonthNum, Day, Year, Back}) {
                     setRemindersList(reminderReturn.data[0].reminders)
                 }
             } else {
-                window.alert(`Unable to get reminders for ${date}, please reload. If the issue persists, contact support.`)
+                window.alert(`Unable to get reminders for ${FormattedDate}, please reload. If the issue persists, contact support.`)
             }
         }
         fetchThem()
@@ -49,9 +53,9 @@ export default function DayView({Month, MonthNum, Day, Year, Back}) {
 
     return(
         <>
-        <DayHeader Day={Day} Month={Month} Back={Back} Arrow={arrow} />
-        {RemindersList.length === 0 ? <NoReminders /> : <Reminders updateReminders={updateReminders} EmptyReminder={EmptyReminder} RemindersList={RemindersList} MonthNum={MonthNum} Day={Day} Year={Year} />}
-        {AddReminder ? <ReminderForm setAddReminder={setAddReminder} updateReminders={updateReminders} Day={Day} Year={Year} MonthNum={MonthNum} RemindersList={RemindersList} EmptyReminder={EmptyReminder} /> : <AddReminderBtn />}
+        <DayHeader MonthName={MonthName} />
+        {RemindersList.length === 0 ? <NoReminders /> : <Reminders UpdateReminders={updateReminders} EmptyReminder={EmptyReminder} RemindersList={RemindersList} FormattedDate={FormattedDate} />}
+        {AddReminder ? <ReminderForm UpdateReminders={updateReminders} SetAddReminder={setAddReminder} RemindersList={RemindersList} EmptyReminder={EmptyReminder} FormattedDate={FormattedDate} /> : <AddReminderBtn />}
         </>
     )
 }

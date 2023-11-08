@@ -1,25 +1,31 @@
 
+import { useContext } from 'react'
+import { DashboardContext } from '../dashboardContext'
 
-export default function DayHeader({Day, Month, Back, Arrow}) {
+import arrow from '../../../static/arrow.png'
 
-    const getSuffix = (Day) => {
-        if ([1, 21, 31].includes(Day)) {
-            return `${Day}st`
-        } else if ([2,22].includes(Day)) {
-            return `${Day}nd`
-        } else if ([3,23].includes(Day)) {
-            return `${Day}rd`
+export default function DayHeader({ MonthName }) {
+
+    const { SelectedDate, setShowCalendar } = useContext(DashboardContext)
+
+    const getSuffix = (dayNumber) => {
+        if ([1, 21, 31].includes(dayNumber)) {
+            return `${dayNumber}st`
+        } else if ([2,22].includes(dayNumber)) {
+            return `${dayNumber}nd`
+        } else if ([3,23].includes(dayNumber)) {
+            return `${dayNumber}rd`
         } else {
-            return `${Day}th`
+            return `${dayNumber}th`
         }
     }
 
     return(
         <div className="relative flex items-center w-full">
-            <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{Month} {getSuffix(Day)}'s Reminders</p>
-            <div onClick={Back} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-zinc-800 hover:bg-opacity-60 active:bg-opacity-100 hover:cursor-pointer">
+            <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{MonthName} {getSuffix(SelectedDate.day)}'s Reminders</p>
+            <div onClick={() => setShowCalendar(true)} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-zinc-800 hover:bg-opacity-60 active:bg-opacity-100 hover:cursor-pointer">
                 <img
-                    src={Arrow}
+                    src={arrow}
                     alt='Back to Calendar'
                     className="rotate-180 scale-[55%]"
                 />

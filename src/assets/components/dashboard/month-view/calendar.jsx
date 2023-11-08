@@ -1,6 +1,11 @@
 
+import { useContext } from "react"
 
-export default function Calendar({SelectedDate, setSelectedDate, CurrentDate, Gregorian, setShowCalendar}) {
+import { DashboardContext } from "../dashboardContext"
+
+export default function Calendar() {
+
+    const { SelectedDate, setSelectedDate, CurrentDate, Gregorian, setShowCalendar } = useContext(DashboardContext)
 
     const handleSelectedDay = (id) => {
         setSelectedDate({

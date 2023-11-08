@@ -4,7 +4,6 @@ export const signOut = async () => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
-        console.log(error)
         window.alert('Error signing out, please try again. If error persists contact support.')
         return false
     } else {

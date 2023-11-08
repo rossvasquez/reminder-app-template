@@ -1,38 +1,37 @@
 
+import check from '../../../static/check.png'
+
 import { addReminder } from "../../../../supabase/calendar/add-reminder"
 
-export default function Reminders({updateReminders, EmptyReminder, RemindersList, MonthNum, Day, Year}) {
+export default function Reminders({ UpdateReminders, EmptyReminder, RemindersList, FormattedDate }) {
 
     const handleCompleted = async (id, action) => {
-        let tempArr = [...RemindersList]
-        const date = `${MonthNum+1}/${Day}/${Year}`
+        let tempRemindersList = [...RemindersList]
 
         if (action == 'select') {
-            tempArr[id].completed = true
+            tempRemindersList[id].completed = true
         } else if (action == 'deselect') {
-            tempArr[id].completed = false
+            tempRemindersList[id].completed = false
         }
 
-        const insert = await addReminder(tempArr, date, EmptyReminder)
+        const insert = await addReminder(tempRemindersList, FormattedDate, EmptyReminder)
         if (insert.didError) {
             window.alert('An error occured, please try again. If the issue persists, contact support.')
-            console.log(insert.data)
         } else {
-            updateReminders()
+            UpdateReminders()
         }  
     }
 
     const removeReminder = async (id) => {
-        const date = `${MonthNum+1}/${Day}/${Year}`
-        const tempArr = [...RemindersList]
-        const firstHalf = tempArr.slice(0,id)
-        const secondHalf = tempArr.slice(id+1)
+        const tempRemindersList = [...RemindersList]
+        const firstHalf = tempRemindersList.slice(0,id)
+        const secondHalf = tempRemindersList.slice(id+1)
         const newReminders = [...firstHalf, ...secondHalf]
-        const insert = await addReminder(newReminders, date, EmptyReminder)
+        const insert = await addReminder(newReminders, FormattedDate, EmptyReminder)
         if (insert.didError) {
             window.alert('An error occured, please try again. If the issue persists, contact support.')
         } else {
-            updateReminders()
+            UpdateReminders()
         }
 
     }
@@ -43,7 +42,9 @@ export default function Reminders({updateReminders, EmptyReminder, RemindersList
                 {RemindersList.map((item, id) =>
                     <div key={id} className="w-full flex gap-4 border-b-[.1rem] border-cyan-400 last:border-b-0 py-6">
                         <div className="w-1/12 flex justify-center items-start pt-1">
-                            <div onClick={RemindersList[id].completed ? () => handleCompleted(id, 'deselect') : () => handleCompleted(id, 'select')} className={`h-4 md:h-8 w-4 md:w-8 mt-3 rounded-[100%] hover:cursor-pointer ${RemindersList[id].completed ? 'bg-cyan-400' : 'border-2 border-white hover:bg-white hover:bg-opacity-40'}`} />
+                            <div onClick={RemindersList[id].completed ? () => handleCompleted(id, 'deselect') : () => handleCompleted(id, 'select')} className={`flex justify-center items-center h-4 md:h-8 w-4 md:w-8 mt-3 rounded-[100%] hover:cursor-pointer ${RemindersList[id].completed ? 'bg-cyan-400' : 'border-2 border-white hover:bg-white hover:bg-opacity-40'}`}>
+                                <img src={check} className={`${RemindersList[id].completed ? null : 'hidden'} scale-[60%] mt-[1px]`} />
+                            </div>
                         </div>
                         <div className="w-full flex flex-col">
                             <p className="font-semibold">{item.reminder}</p>
