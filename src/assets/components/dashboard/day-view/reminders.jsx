@@ -41,8 +41,8 @@ export default function Reminders({ UpdateReminders, EmptyReminder, RemindersLis
             <div className="flex flex-col">
                 {RemindersList.map((item, id) =>
                     <div key={id} className="w-full flex gap-4 border-b-[.1rem] border-cyan-400 last:border-b-0 py-6">
-                        <div className="w-1/12 flex justify-center items-start pt-1">
-                            <div onClick={RemindersList[id].completed ? () => handleCompleted(id, 'deselect') : () => handleCompleted(id, 'select')} className={`flex justify-center items-center h-4 md:h-8 w-4 md:w-8 mt-3 rounded-[100%] hover:cursor-pointer ${RemindersList[id].completed ? 'bg-cyan-400' : 'border-2 border-white hover:bg-white hover:bg-opacity-40'}`}>
+                        <div className="w-12 md:w-16 flex justify-center items-start pt-1">
+                            <div onClick={RemindersList[id].completed ? () => handleCompleted(id, 'deselect') : () => handleCompleted(id, 'select')} className={`flex justify-center items-center h-8 w-8 mt-3 rounded-[100%] hover:cursor-pointer ${RemindersList[id].completed ? 'bg-cyan-400' : 'border-2 border-white hover:bg-white hover:bg-opacity-40'}`}>
                                 <img src={check} className={`${RemindersList[id].completed ? null : 'hidden'} scale-[60%] mt-[1px]`} />
                             </div>
                         </div>

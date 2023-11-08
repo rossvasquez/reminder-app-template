@@ -22,7 +22,7 @@ export default function DayHeader({ MonthName }) {
 
     return(
         <div className="relative flex items-center w-full">
-            <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{MonthName} {getSuffix(SelectedDate.day)}'s Reminders</p>
+            <p className="text-3xl md:text-4xl font-semibold text-white w-8/12">{MonthName} {getSuffix(SelectedDate.day)}</p>
             <div onClick={() => setShowCalendar(true)} className="absolute right-4 h-12 w-12 pr-1 flex justify-center items-center rounded-full bg-zinc-800 hover:bg-opacity-60 active:bg-opacity-100 hover:cursor-pointer">
                 <img
                     src={arrow}
